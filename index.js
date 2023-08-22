@@ -33,7 +33,7 @@ var restartButton = document.querySelector(".restart-button");
 restartButton.addEventListener("click", restartGame);
 
 function restartGame() {
- 
+  
   location.reload();
 }
 
@@ -50,6 +50,7 @@ function checkClicks() {
     } else {
       document.querySelector(".container h1").innerHTML = "It's a draw!";
     }
+    restartButton.style.display = "block";
   }
 }
 
