@@ -31,7 +31,7 @@ function B2() {
 
 var restartButton = document.querySelector(".restart-button");
 restartButton.addEventListener("click", restartGame);
-
+restartButton.style.display = "none";
 function restartGame() {
   
   location.reload();
