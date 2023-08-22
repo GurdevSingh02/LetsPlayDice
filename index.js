@@ -1,9 +1,16 @@
-var currentPlayer = 1; // Variable to track the current player
-var clicksPlayer1 = 0; // Variable to track the number of clicks for Player 1
-var clicksPlayer2 = 0; // Variable to track the number of clicks for Player 2
+var currentPlayer = 1; 
+var clicksPlayer1 = 0;
+var clicksPlayer2 = 0; 
 
 var No1 = document.querySelector(".B1").addEventListener("click", B1);
 var No2 = document.querySelector(".B2").addEventListener("click", B2);
+
+
+var restartButton = document.querySelector(".restart-button");
+restartButton.style.display = "none";
+
+
+restartButton.addEventListener("click", restartGame);
 
 function B1() {
   if (currentPlayer === 1 && clicksPlayer1 === 0) {
@@ -11,9 +18,9 @@ function B1() {
     var imgSource1 = "images/dice" + randomNumber1 + ".png";
     var image1 = document.querySelectorAll("img")[0];
     image1.setAttribute("src", imgSource1);
-    clicksPlayer1++; // Increment the click count for Player 1
-    currentPlayer = 2; // Set the current player to Player 2
-    checkClicks(); // Check if both players have rolled the dice
+    clicksPlayer1++;
+    currentPlayer = 2;
+    checkClicks();
   }
 }
 
@@ -23,23 +30,14 @@ function B2() {
     var imgSource2 = "images/dice" + randomNumber2 + ".png";
     var image2 = document.querySelectorAll("img")[1];
     image2.setAttribute("src", imgSource2);
-    clicksPlayer2++; // Increment the click count for Player 2
-    currentPlayer = 1; // Set the current player back to Player 1
-    checkClicks(); // Check if both players have rolled the dice
+    clicksPlayer2++;
+    currentPlayer = 1;
+    checkClicks();
   }
-}
-
-var restartButton = document.querySelector(".restart-button");
-restartButton.addEventListener("click", restartGame);
-restartButton.style.display = "none";
-function restartGame() {
-  
-  location.reload();
 }
 
 function checkClicks() {
   if (clicksPlayer1 === 1 && clicksPlayer2 === 1) {
-    // Both players have rolled the dice once
     var randomNumber1 = parseInt(document.querySelectorAll("img")[0].getAttribute("src").replace("images/dice", "").replace(".png", ""));
     var randomNumber2 = parseInt(document.querySelectorAll("img")[1].getAttribute("src").replace("images/dice", "").replace(".png", ""));
 
@@ -50,7 +48,15 @@ function checkClicks() {
     } else {
       document.querySelector(".container h1").innerHTML = "It's a draw!";
     }
+
+    
     restartButton.style.display = "block";
   }
 }
 
+function restartGame() {
+  
+  location.reload();
+
+  restartButton.style.display = "none";
+}
