@@ -1,84 +1,62 @@
-.container {
-  width: 70%;
-  margin: auto;
-  text-align: center;
-  position: relative; /* Add relative positioning to the container */
-}
+var currentPlayer = 1; 
+var clicksPlayer1 = 0;
+var clicksPlayer2 = 0; 
 
-.dice {
-  text-align: center;
-  display: inline-block;
-  position: relative;
-}
+var No1 = document.querySelector(".B1").addEventListener("click", B1);
+var No2 = document.querySelector(".B2").addEventListener("click", B2);
 
-.B1 {
-  background-color: #393E46;
-  padding: 0%;
-}
 
-.B2 {
-  background-color: #393E46;
-  padding: 0%;
-}
+var restartButton = document.querySelector(".restart-button");
+restartButton.style.display = "none";
 
-body {
-  background-color: #393E46;
-}
 
-h1 {
-  margin: 30px;
-  font-family: 'Lobster', cursive;
-  text-shadow: 5px 0 #232931;
-  font-size: 8rem;
-  color: #4ECCA3;
-}
+restartButton.addEventListener("click", restartGame);
 
-p {
-  font-size: 2rem;
-  color: #4ECCA3;
-  font-family: 'Indie Flower', cursive;
-}
-
-img {
-  width: 80%;
-}
-
-.restart-button {
-  display: none;
-  background-color: #393E46;
-  color: #FFFFFF;
-  border: none;
-  padding: 10px 20px;
-  font-size: 1rem;
-  cursor: pointer;
-  position: absolute;
-  bottom: -40px;
-  left: 50%;
-  transform: translateX(-50%);
-  transition: background-color 0.3s ease;
-}
-
-.restart-button:hover {
-  background-color: #4ECCA3;
-}
-
-/* Add media queries for responsive design */
-@media screen and (max-width: 768px) {
-  .container {
-    width: 90%;
+function B1() {
+  if (currentPlayer === 1 && clicksPlayer1 === 0) {
+    var randomNumber1 = Math.floor(Math.random() * 6) + 1;
+    var imgSource1 = "images/dice" + randomNumber1 + ".png";
+    var image1 = document.querySelectorAll("img")[0];
+    image1.setAttribute("src", imgSource1);
+    clicksPlayer1++;
+    currentPlayer = 2;
+    checkClicks();
   }
+}
 
-  .dice {
-    display: block;
-    margin: 20px auto;
+function B2() {
+  if (currentPlayer === 2 && clicksPlayer2 === 0) {
+    var randomNumber2 = Math.floor(Math.random() * 6) + 1;
+    var imgSource2 = "images/dice" + randomNumber2 + ".png";
+    var image2 = document.querySelectorAll("img")[1];
+    image2.setAttribute("src", imgSource2);
+    clicksPlayer2++;
+    currentPlayer = 1;
+    checkClicks();
   }
+}
 
-  img {
-    width: 100%;
-  }
+function checkClicks() {
+  if (clicksPlayer1 === 1 && clicksPlayer2 === 1) {
+    var randomNumber1 = parseInt(document.querySelectorAll("img")[0].getAttribute("src").replace("images/dice", "").replace(".png", ""));
+    var randomNumber2 = parseInt(document.querySelectorAll("img")[1].getAttribute("src").replace("images/dice", "").replace(".png", ""));
 
-  /* Adjust the restart button position for smaller screens */
-  .restart-button {
-    bottom: -60px; /* Increase the bottom value to adjust the position */
+    if (randomNumber1 > randomNumber2) {
+      document.querySelector(".container h1").innerHTML = "Player 1 won";
+    } else if (randomNumber1 < randomNumber2) {
+      document.querySelector(".container h1").innerHTML = "Player 2 won";
+    } else {
+      document.querySelector(".container h1").innerHTML = "It's a draw!";
+    }
+
+    
+    restartButton.style.display = "block";
   }
+}
+
+function restartGame() {
+  
+  location.reload();
+
+  restartButton.style.display = "none";
 }
