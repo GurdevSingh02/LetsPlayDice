@@ -29,6 +29,14 @@ function B2() {
   }
 }
 
+var restartButton = document.querySelector(".restart-button");
+restartButton.addEventListener("click", restartGame);
+
+function restartGame() {
+ 
+  location.reload();
+}
+
 function checkClicks() {
   if (clicksPlayer1 === 1 && clicksPlayer2 === 1) {
     // Both players have rolled the dice once
@@ -45,21 +53,3 @@ function checkClicks() {
   }
 }
 
-var restartButton = document.querySelector(".restart-button");
-restartButton.addEventListener("click", restartGame);
-
-function restartGame() {
-  // Reset player clicks and current player
-  clicksPlayer1 = 0;
-  clicksPlayer2 = 0;
-  currentPlayer = 1;
-
-  // Reset dice images
-  var image1 = document.querySelectorAll("img")[0];
-  var image2 = document.querySelectorAll("img")[1];
-  image1.setAttribute("src", "images/dice6.png");
-  image2.setAttribute("src", "images/dice6.png");
-
-  // Reset game result
-  document.querySelector(".container h1").innerHTML = "Dicee Game";
-}
